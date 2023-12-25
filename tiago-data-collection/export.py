@@ -8,7 +8,7 @@ def save_rgb(img, episode_dir):
     img=img.reshape(480,640,3,-1)    
     #export img to vid
     
-    out=cv2.VideoWriter((episode_dir / "/compressed_video_h264.mp4").as_posix(), cv2.VideoWriter_fourcc(*'mp4v'), 10, (img.shape[1], img.shape[0]))
+    out=cv2.VideoWriter((episode_dir / "compressed_video_h264.mp4").as_posix(), cv2.VideoWriter_fourcc(*'mp4v'), 10, (img.shape[1], img.shape[0]))
     for i in range(img.shape[-1]):
         out.write(cv2.cvtColor(img[:,:,:,i], cv2.COLOR_BGR2RGB)) #fix colors and write to vid
     out.release()
