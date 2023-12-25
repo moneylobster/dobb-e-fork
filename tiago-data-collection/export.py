@@ -25,7 +25,7 @@ def save_depth(depth, episode_dir):
     (episode_dir / "compressed_np_depth_float32.bin").write_bytes(depth_bytes)
 
 def process_episode(filename, root_dir):
-    data=np.load(f'{filename}.npz')
+    data=np.load(f'data/{filename}.npz')
     img=data["img"]
     depth=data["depth"]
     episode_dir_name = f'dataset/task1/env1/{filename}' 
