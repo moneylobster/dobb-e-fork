@@ -27,6 +27,7 @@ def cleanup():
     print("Saving...")
     np.savez(f'data/{datename}.npz', img=imgarr, depth=deptharr)
     print(f"Saved with sizes: imgarr {imgarr.shape} deptharr {deptharr.shape}")
+    os.system(f"scp data/{datename}.npz data/{datename}.json pal@192.168.0.245:~/tiago-data-collection/data")
 
 
 def callback(image, depth, vel, torso, gripper):
