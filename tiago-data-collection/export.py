@@ -47,4 +47,4 @@ for file in os.listdir("data"):
 
 root_dir=Path(os.getcwd())
 for file in datafiles:    
-    process_episode(file)
+    process_episode(file, root_dir)
