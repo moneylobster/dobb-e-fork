@@ -24,7 +24,9 @@ deptharr=np.empty((480,640,1,1), dtype=np.int16)
 def cleanup():
     global jsonfile, imgarr, deptharr
     jsonfile.close()
-    np.savez(f'data/{datename}.npz',img=imgarr,depth=deptharr)
+    print("Saving...")
+    np.savez(f'data/{datename}.npz', img=imgarr, depth=deptharr)
+    print(f"Saved with sizes: imgarr {imgarr.shape} deptharr {deptharr.shape}")
 
 
 def callback(image, depth, vel, torso, gripper):
@@ -48,7 +50,6 @@ def callback(image, depth, vel, torso, gripper):
     npimg=np.frombuffer(image.data, np.uint8).reshape(480,640,3,1)
     npdepth=np.frombuffer(depth.data, np.int16).reshape(480,640,1,1)
     
-    #print(f"imgarr {imgarr.shape} npimg {npimg.shape}")
     imgarr=np.concatenate((imgarr, npimg), axis=-1)
     deptharr=np.concatenate((deptharr, npdepth), axis=-1)
 
@@ -76,7 +77,6 @@ def listener():
     rospy.spin()
 
 if __name__ == '__main__':
+    print("Starting recording...")
     listener()
     
-
-
