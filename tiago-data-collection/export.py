@@ -37,10 +37,15 @@ def process_episode(filename, root_dir):
     save_all(img, depth, episode_dir)   # save rgb and depth images
     os.rename(f'data/{filename}.json', episode_dir / 'labels.json')  # save action labels
 
-
 def save_all(img, depth, episode_dir):
     save_rgb(img, episode_dir)
+    with open(episode_dir / 'rgb_rel_videos_exported.txt', 'w') as f:
+        f.write('Done.')
     save_depth(depth, episode_dir)
+    with open(episode_dir / 'completed.txt', 'w') as f:
+        f.write('Completed')
+
+    
 
 # read every .npz file in data/
 datafiles=[]
