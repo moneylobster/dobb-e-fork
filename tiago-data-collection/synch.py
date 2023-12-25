@@ -9,10 +9,14 @@ from control_msgs.msg import JointTrajectoryControllerState
 import numpy as np
 import json
 import os 
+from datetime import datetime
 
+
+# get the date in YYYY-MM-DD-HH-MM-SS format
+datename = datetime.now().strftime("%Y-%m-%d--%H-%M-%S")
 lasttime=0
 iter = 0
-jsonpath = "data/labels.json"
+jsonpath = f"data/{datename}.json"
 jsonfile = None
 imgarr=np.empty((480,640,3,1), dtype=np.uint8)
 deptharr=np.empty((480,640,1,1), dtype=np.int16)
@@ -20,7 +24,7 @@ deptharr=np.empty((480,640,1,1), dtype=np.int16)
 def cleanup():
     global jsonfile, imgarr, deptharr
     jsonfile.close()
-    np.savez('data/log.npz',img=imgarr,depth=deptharr)
+    np.savez(f'data/{datename}.npz',img=imgarr,depth=deptharr)
 
 
 def callback(image, depth, vel, torso, gripper):
