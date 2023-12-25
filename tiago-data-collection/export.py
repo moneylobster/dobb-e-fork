@@ -8,7 +8,7 @@ def save_rgb(img, episode_dir):
     img=img.reshape(480,640,3,-1)    
     #export img to vid
     
-    out=cv2.VideoWriter(episode_dir / "/compressed_video_h264.mp4", cv2.VideoWriter_fourcc(*'mp4v'), 10, (img.shape[1], img.shape[0]))
+    out=cv2.VideoWriter((episode_dir / "/compressed_video_h264.mp4").as_posix(), cv2.VideoWriter_fourcc(*'mp4v'), 10, (img.shape[1], img.shape[0]))
     for i in range(img.shape[-1]):
         out.write(cv2.cvtColor(img[:,:,:,i], cv2.COLOR_BGR2RGB)) #fix colors and write to vid
     out.release()
@@ -28,8 +28,11 @@ def process_episode(filename, root_dir):
     data=np.load(f'data/{filename}.npz')
     img=data["img"]
     depth=data["depth"]
-    episode_dir_name = f'dataset/task1/env1/{filename}' 
-    os.mkdir(episode_dir_name)
+    episode_dir_name = f'dataset/task1/env1/{filename}'
+    try:
+        os.mkdir(episode_dir_name)
+    except FileExistsError:
+        print("Folder already exists, continuing.")
     episode_dir = root_dir / episode_dir_name
     save_all(img, depth, episode_dir)   # save rgb and depth images
     os.rename(f'{filename}.json', episode_dir / 'labels.json')  # save action labels
