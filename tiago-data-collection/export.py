@@ -35,7 +35,7 @@ def process_episode(filename, root_dir):
         print("Folder already exists, continuing.")
     episode_dir = root_dir / episode_dir_name
     save_all(img, depth, episode_dir)   # save rgb and depth images
-    os.rename(f'data/{filename}.json', episode_dir / 'labels.json')  # save action labels
+    os.system(f'cp data/{filename}.json', str(episode_dir / 'labels.json'))  # save action labels
 
 def save_all(img, depth, episode_dir):
     save_rgb(img, episode_dir)
