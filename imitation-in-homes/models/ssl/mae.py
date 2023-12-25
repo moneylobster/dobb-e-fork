@@ -150,7 +150,7 @@ class MAE(nn.Module):
             device = p.device
             break
         image = image.to(device)
-        temp = torch.zeros(1, 1, 7)
+        temp = torch.zeros(1, 1, 4)
         with torch.no_grad():
             pred_pixel_values, masked_patches, masked_indices = self.forward(
                 (image, temp), reconstruct=True
